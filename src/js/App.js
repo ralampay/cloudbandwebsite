@@ -18,6 +18,17 @@ import logoReact from "../styles/images/logo/react.png";
 import logoRedis from "../styles/images/logo/redis.png";
 
 export default App = () => {
+  const [name, setName]           = useState("");
+  const [email, setEmail]         = useState("");
+  const [message, setMessage]     = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const clearFields = () => {
+    setName("");
+    setEmail("");
+    setMessage("");
+  }
+
   return (
     <React.Fragment>
       <header className="sticky-top bg-white">
@@ -333,23 +344,76 @@ export default App = () => {
                   <p>
                     Please fill out the form below to start your project with us. We're excited to work together!
                   </p>
-                  <form>
-                    <div className="mb-3">
-                      <label for="fullname" className="form-label">Full Name</label>
-                      <input type="text" className="form-control" id="fullname" name="fullname"/>
-                    </div>
-                    <div className="mb-3">
-                      <label for="email" className="form-label">Email</label>
-                      <input type="email" className="form-control" id="email" name="email"/>
-                    </div>
-                    <div className="mb-3">
-                      <label for="message" className="form-label">Message</label>
-                      <textarea name="message" id="message" cols="30" rows="3" className="form-control"></textarea>
-                    </div>
-                    <button type="submit" className="btn btn-lg btn-accent d-block w-100">
-                      SUBMIT
-                    </button>
-                  </form>
+                  <div className="mb-3">
+                    <label for="fullname" className="form-label">Full Name</label>
+                    <input
+                      type="text" 
+                      className="form-control" 
+                      id="fullname" name="fullname"
+                      value={name}
+                      disabled={isLoading}
+                      onChange={(event) => { setName(event.target.value); }}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label for="email" className="form-label">Email</label>
+                    <input
+                      type="email" 
+                      className="form-control" 
+                      id="email" 
+                      name="email"
+                      value={email}
+                      disabled={isLoading}
+                      onChange={(event) => { setEmail(event.target.value); }}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label for="message" className="form-label">Message</label>
+                    <textarea 
+                      name="message" 
+                      id="message" 
+                      cols="30" 
+                      rows="3" 
+                      className="form-control" 
+                      value={message} 
+                      disabled={isLoading}
+                      onChange={(event) => { setMessage(event.target.value); }}
+                    />
+                  </div>
+                  <button 
+                    type="submit" 
+                    className="btn btn-lg btn-accent d-block w-100"
+                    disabled={isLoading}
+                    onClick={() => {
+                      setIsLoading(true);
+                      const payload = {
+                        name: name,
+                        email: email,
+                        message: message
+                      }
+
+                      fetch("https://w4jpuzrpch.execute-api.ap-southeast-1.amazonaws.com/Stage/contact", {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                          'Accept': 'application/json, text/plain, */*',
+                          'Access-Control-Allow-Origin': 'http://localhost:4000',
+                          'Access-Control-Allow-Credentials': 'true',
+                          'Access-Control-Allow-Methods': 'POST',
+                          'Access-Control-Allow-Headers': 'Content-Type'
+                        },
+                        body: JSON.stringify(payload)
+                      })
+                      .then(response => response.json())
+                      .then(data => {
+                        alert("Thanks for reaching out!");
+                        clearFields();
+                        setIsLoading(false);
+                      })
+                    }}
+                  >
+                    SUBMIT
+                  </button>
                 </div>
               </div>
             </div>
