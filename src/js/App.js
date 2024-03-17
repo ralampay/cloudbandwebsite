@@ -221,15 +221,15 @@ export default App = () => {
                     <img src="https://dummyimage.com/640x360/ddd/ddd.png" alt="" width="640" height="360" className="project__img img-fluid rounded shadow-sm"/>
                   </div>
                   <div className="col-lg-6 ps-lg-5 py-4">
-                    <p className="project__tag">Web Application</p>
-                    <h3 className="project__title mb-4">Online Financial Management System</h3>
+                    <p className="project__tag">Artificial Intelligence</p>
+                    <h3 className="project__title mb-4">AI Powered Utility and Automation</h3>
                     <div className="project__copy">
                       <ul>
                         <li>
-                          Financial Management System catering cooperatives in the Philippines
+                          Enabling businesses to take advantage of AI services for increasing operational efficiency.
                         </li>
                         <li>
-                          Allows cooperatives to manage loans, equity, membership accounts and provide comprehensive reports for decision making
+                          Allowing faster transaction processing at large scale volumes.
                         </li>
                         <li>
                           Business intelligence at its core
@@ -323,7 +323,7 @@ export default App = () => {
                   <div className="card-body">
                     <h3 className="card-title mb-3 h4">History</h3>
                     <p className="card-text">
-                      Started in 2014, Cloudband Solutions Co. has prided itself in being an all Filipino software development company that leverages open source technology to provide custom quality software solutions to various companies around the world.
+                      Started in 2014, Cloudband Solutions Co. prides itself in being an all Filipino software development company that leverages open source technology to provide custom quality software solutions to various companies around the world.
                     </p>
                   </div>
                 </div>
@@ -331,7 +331,7 @@ export default App = () => {
                   <div className="card-body">
                     <h3 className="card-title mb-3 h4">Mission Statement</h3>
                     <p className="card-text">
-                      The company's primary mission is to bring modern software solutions for the modern world while being always up to date and continuously improving, evolving its products and services over time.
+                      The company's primary mission is to bring modern software solutions for the modern world, maintaining and supporting it as well as evolving its products and services over time.
                     </p>
                   </div>
                 </div>
