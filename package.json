@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node build.js",
     "start": "node build.js --watch --dev",
-    "deploy-staging": "aws s3 sync ./public s3://cloudbandwebsite"
+    "deploy": "aws s3 sync ./public s3://cloudbandsolutions.com"
   },
   "author": "",
   "license": "ISC",
