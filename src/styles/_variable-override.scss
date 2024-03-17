@@ -1,0 +1,25 @@
+// Font
+$font-family-base: 'Mulish', system-ui, sans-serif;
+$btn-font-size : .875rem;
+$nav-link-font-size : .875rem;
+$font-weight-black: 900;
+$font-weight-bolder: 800;
+
+// Color
+$body-color: #555;
+$headings-color: #04100e;
+$card-title-color: $headings-color;
+$color-accent : #ffcc66;
+$primary : #165045;
+$primary-light: #f8faf9;
+$navbar-light-active-color: $primary;
+
+// Component - btn
+$btn-border-radius: 6px;
+$btn-border-radius-lg: $btn-border-radius;
+$btn-font-size : .75rem;
+$btn-padding-y : .714em;
+$btn-padding-x : 2.14em;
+
+$border-radius: 6px;
+$box-shadow-sm : 2px 4px 8px rgba(0, 0, 0, .05);

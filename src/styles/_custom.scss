@@ -1,0 +1,198 @@
+// Utilities
+.center-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-accent {
+  @include button-variant($color-accent, $color-accent);
+}
+
+.btn-lg {
+  font-size: .875rem;
+  padding: 1.14em 2.78em;
+}
+
+// HEADER
+.main-menu .active {
+    font-weight: 600;
+}
+
+.header__logo-img {
+    width: 200px;
+    height: auto;
+
+    @include media-breakpoint-up(sm) {
+        width: 281px;
+    }
+}
+
+// Banner section
+.banner {
+    background: url(./images/bg-pattern-dots.png) repeat, url(./images/bg-clouds.png) no-repeat bottom left;
+
+    &__copy {
+        font-weight: 900;
+
+        @include media-breakpoint-up(lg) {
+            width: 75%;
+        }
+
+        small {
+            font-size: .3em;
+        }
+    }
+}
+
+.container--img {
+    max-width: 73%;
+    width: max-content;
+}
+
+.laptop {
+    border-bottom: 15px solid #777;
+    border-radius: 0 0 10px 10px;
+    padding: 0 20px 0;
+
+    &__screen {
+        border: 10px solid #ddd;
+        border-radius: 6px 6px 0 0;
+    }
+
+    img {
+        object-fit: contain;
+        aspect-ratio: 16/9;
+        filter: blur(.2px);
+        background-color: #ddd;
+    }
+}
+
+.popover {
+    text-align: center;
+    text-transform: uppercase;
+    position: absolute;
+    z-index: 1;
+
+    &--left {
+        left: 0;
+        transform: translateX(-50%);
+
+        @include media-breakpoint-down(xl) {
+            transform: translateX(-35%);
+        }
+    }
+
+    &--right {
+        right: 0;
+        transform: translateX(50%);
+
+        @include media-breakpoint-down(xl) {
+            transform: translateX(35%);
+        }
+    }
+
+    &__text {
+        display: inline-block;
+        padding: 20px 30px;
+        margin: 1.5rem 0;
+        border-radius: 6px;
+        box-shadow: $box-shadow-sm;
+        background-color: #DCF2EF;
+        font-weight: bold;
+        color: $primary;
+
+        @include media-breakpoint-down(xl) {
+            font-size: .875rem;
+            margin: .5rem 0;
+        }
+    }
+}
+
+// Services
+.services {
+    background: $primary-light url(./images/bg-services.png) no-repeat bottom center;
+    padding-bottom: 150px;
+}
+
+.container--services {
+    grid-template-columns: repeat(3, 300px);
+    gap: 2rem;
+
+    @include media-breakpoint-up(lg) {
+        row-gap: 3rem;
+    }
+
+    @include media-breakpoint-down(lg) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include media-breakpoint-down(md) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-down(sm) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card--services {
+    @include media-breakpoint-up(md) {
+        min-height: 325px;
+    }
+
+    .card-img {
+        width: 70px;
+        height: 70px;
+        background-color: #dcf2ef;
+    }
+
+    .card-text {
+        color: #777;
+    }
+}
+
+// Portfolio
+.project__tag {
+    display: inline-block;
+    background-color: #FFCC66;
+    padding-left: .83em;
+    padding-right: .83em;
+    font-size: .75rem;
+    text-transform: uppercase;
+    color: #865C09;
+    border-radius: $border-radius;
+}
+
+.project__title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.project__img {
+    object-fit: contain;
+    aspect-ratio: 16/9;
+    background-color: $primary-light;
+    max-width: 90%;
+}
+
+// Open Source Tool Logos
+.open-source img {
+    object-fit: contain;
+    max-height: 50;
+}
+
+// About
+.about {
+    .card {
+        border: none;
+        border-top: 3px solid $primary;
+        background-color: $primary-light;
+    }
+}
+
+// Contact Form
+.container--form {
+  background: rgb(20, 80, 72);
+  background: linear-gradient(135deg, rgba(20, 80, 72, 1) 0%, rgba(28, 103, 117, 1) 100%);
+}
