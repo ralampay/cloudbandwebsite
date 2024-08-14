@@ -16,8 +16,12 @@ import logoPython from "../styles/images/logo/python.png";
 import logoRails from "../styles/images/logo/rails.png";
 import logoReact from "../styles/images/logo/react.png";
 import logoRedis from "../styles/images/logo/redis.png";
+import fis from "../styles/images/fis.jpg";
+import fleet from "../styles/images/fleet.jpg";
+import ai from "../styles/images/ai.jpg";
+import hmis from "../styles/images/hmis.jpg";
 
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 
 export default App = () => {
   const [name, setName]           = useState("");
@@ -198,7 +202,7 @@ export default App = () => {
               <div className="container-fluid">
                 <div className="row align-items-center">
                   <div className="col-lg-6 bg-primary text-center py-5 align-self-stretch d-flex align-items-center justify-content-center">
-                    <img src="https://dummyimage.com/640x360/ddd/ddd.png" alt="" width="640" height="360" className="project__img img-fluid rounded shadow-sm"/>
+                    <img src={fis} alt="" width="640" height="360" className="project__img img-fluid rounded"/>
                   </div>
                   <div className="col-lg-6 ps-lg-5 py-4">
                     <p className="project__tag">Enterprise Software Solutions</p>
@@ -218,7 +222,7 @@ export default App = () => {
               <div className="container-fluid">
                 <div className="row align-items-center">
                   <div className="col-lg-6 bg-primary text-center py-5 align-self-stretch d-flex align-items-center justify-content-center">
-                    <img src="https://dummyimage.com/640x360/ddd/ddd.png" alt="" width="640" height="360" className="project__img img-fluid rounded shadow-sm"/>
+                    <img src={ai} alt="" width="640" height="360" className="project__img img-fluid rounded shadow-sm"/>
                   </div>
                   <div className="col-lg-6 ps-lg-5 py-4">
                     <p className="project__tag">Artificial Intelligence</p>
@@ -244,7 +248,7 @@ export default App = () => {
               <div className="container-fluid">
                 <div className="row align-items-center">
                   <div className="col-lg-6 bg-primary text-center py-5 align-self-stretch d-flex align-items-center justify-content-center">
-                    <img src="https://dummyimage.com/640x360/ddd/ddd.png" alt="" width="640" height="360" className="project__img img-fluid rounded shadow-sm"/>
+                    <img src={fleet} alt="" width="640" height="360" className="project__img img-fluid rounded shadow-sm"/>
                   </div>
                   <div className="col-lg-6 ps-lg-5 py-4">
                     <p className="project__tag">Enterprise Software Solutions</p>
@@ -276,7 +280,7 @@ export default App = () => {
               <div className="container-fluid">
                 <div className="row align-items-center">
                   <div className="col-lg-6 bg-primary text-center py-5 align-self-stretch d-flex align-items-center justify-content-center">
-                    <img src="https://dummyimage.com/640x360/ddd/ddd.png" alt="" width="640" height="360" className="project__img img-fluid rounded shadow-sm"/>
+                    <img src={hmis} alt="" width="640" height="360" className="project__img img-fluid rounded shadow-sm"/>
                   </div>
                   <div className="col-lg-6 ps-lg-5 py-4">
                     <p className="project__tag">Custom Software</p>
