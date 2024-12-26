@@ -22,12 +22,14 @@ import ai from "../styles/images/ai.jpg";
 import hmis from "../styles/images/hmis.jpg";
 
 import { Navbar } from "react-bootstrap";
+import { submitMessage, hasFormError, getInputClassName, renderInputErrors } from "./Services";
 
 export default App = () => {
   const [name, setName]           = useState("");
   const [email, setEmail]         = useState("");
   const [message, setMessage]     = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors]       = useState({});
 
   const clearFields = () => {
     setName("");
@@ -352,24 +354,26 @@ export default App = () => {
                     <label for="fullname" className="form-label">Full Name</label>
                     <input
                       type="text" 
-                      className="form-control" 
+                      className={getInputClassName(errors, 'name')}
                       id="fullname" name="fullname"
                       value={name}
                       disabled={isLoading}
                       onChange={(event) => { setName(event.target.value); }}
                     />
+                    {renderInputErrors(errors, 'name')}
                   </div>
                   <div className="mb-3">
                     <label for="email" className="form-label">Email</label>
                     <input
                       type="email" 
-                      className="form-control" 
+                      className={getInputClassName(errors, 'email')}
                       id="email" 
                       name="email"
                       value={email}
                       disabled={isLoading}
                       onChange={(event) => { setEmail(event.target.value); }}
                     />
+                    {renderInputErrors(errors, 'email')}
                   </div>
                   <div className="mb-3">
                     <label for="message" className="form-label">Message</label>
@@ -378,11 +382,12 @@ export default App = () => {
                       id="message" 
                       cols="30" 
                       rows="3" 
-                      className="form-control" 
+                      className={getInputClassName(errors, 'message')}
                       value={message} 
                       disabled={isLoading}
                       onChange={(event) => { setMessage(event.target.value); }}
                     />
+                    {renderInputErrors(errors, 'message')}
                   </div>
                   <button 
                     type="submit" 
@@ -390,30 +395,23 @@ export default App = () => {
                     disabled={isLoading}
                     onClick={() => {
                       setIsLoading(true);
+
                       const payload = {
                         name: name,
                         email: email,
                         message: message
                       }
 
-                      fetch("https://w4jpuzrpch.execute-api.ap-southeast-1.amazonaws.com/Stage/contact", {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                          'Accept': 'application/json, text/plain, */*',
-                          'Access-Control-Allow-Origin': 'http://localhost:4000',
-                          'Access-Control-Allow-Credentials': 'true',
-                          'Access-Control-Allow-Methods': 'POST',
-                          'Access-Control-Allow-Headers': 'Content-Type'
-                        },
-                        body: JSON.stringify(payload)
-                      })
-                      .then(response => response.json())
-                      .then(data => {
+                      submitMessage(payload).then((res) => {
                         alert("Thanks for reaching out!");
                         clearFields();
+                      }).catch((res) => {
+                        console.log("Error in posting message:");
+                        console.log(res.response);
+                        setErrors(res.response.data);
+                      }).finally(() => {
                         setIsLoading(false);
-                      })
+                      });
                     }}
                   >
                     SUBMIT
