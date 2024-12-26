@@ -351,11 +351,12 @@ export default App = () => {
                     Please fill out the form below to start your project with us. We're excited to work together!
                   </p>
                   <div className="mb-3">
-                    <label for="fullname" className="form-label">Full Name</label>
+                    <label for="name" className="form-label">Full Name</label>
                     <input
                       type="text" 
                       className={getInputClassName(errors, 'name')}
-                      id="fullname" name="fullname"
+                      id="name" 
+                      name="name"
                       value={name}
                       disabled={isLoading}
                       onChange={(event) => { setName(event.target.value); }}
@@ -394,6 +395,7 @@ export default App = () => {
                     className="btn btn-lg btn-accent d-block w-100"
                     disabled={isLoading}
                     onClick={() => {
+                      setErrors({});
                       setIsLoading(true);
 
                       const payload = {

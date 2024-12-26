@@ -31,9 +31,6 @@ export const submitMessage = (payload) => {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json, text/plain, */*',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': '*'
       }
     }
   )
