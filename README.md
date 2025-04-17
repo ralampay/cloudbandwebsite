@@ -27,4 +27,5 @@ npm run deploy
 #### Upgrading Node Packages
 
 ```sh
+npx node-check-updates -u && npm install
 ```

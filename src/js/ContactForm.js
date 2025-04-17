@@ -85,8 +85,13 @@ export default ContactForm = () => {
               clearFields();
             }).catch((res) => {
               console.log("Error in posting message:");
-              console.log(res.response);
-              setErrors(res.response.data);
+              console.log(res);
+
+              if (res.response && res.response.data) {
+                setErrors(res.response.data);
+              } else {
+                setErrors({ general: ['Something went wrong'] });
+              }
             }).finally(() => {
               setIsLoading(false);
             });

@@ -24,8 +24,11 @@ export const renderInputErrors = (errors, key) => {
 }
 
 export const submitMessage = (payload) => {
+  const endpoint = 'https://lrat0149zk.execute-api.ap-southeast-1.amazonaws.com/Prod/messenger';
+  console.log(`[DEBUG]: Endpoint is ${endpoint}`);
+
   return axios.post(
-    'https://lrat0149zk.execute-api.ap-southeast-1.amazonaws.com/Prod/messenger',
+    endpoint,
     payload,
     {
       headers: {
