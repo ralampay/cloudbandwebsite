@@ -17,8 +17,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-public/assets/index.js
-public/assets/index.js.map
 public/assets/styles/*
+public/assets/*.js
+public/assets/*.map
 
 .vscode
