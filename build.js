@@ -10,6 +10,9 @@ const port = 8000;
 const args = process.argv.slice(2);
 const watch = args.includes("--watch");
 const dev = args.includes("--dev");
+const publicDir = path.resolve('public');
+const templatePath = path.join(publicDir, 'index.template.html');
+const indexPath = path.join(publicDir, 'index.html');
 
 const watchPlugin = {
   name: 'watch-plugin',
@@ -51,7 +54,7 @@ const commonSettings = {
     esbuildEnvfilePlugin,
     sassPlugin({
       async transform(source) {
-        const { css } = await postcss([autoprefixer]).process(source);
+        const { css } = await postcss([autoprefixer]).process(source, { from: undefined });
         return css;
       },
     }),
@@ -60,14 +63,19 @@ const commonSettings = {
 };
 
 if (watch || dev) {
-  let debugSettings = {
+  const debugSettings = {
     ...commonSettings,
     logLevel: "debug",
     sourcemap: "linked"
   };
 
-  let debugMode = await esbuild.context(debugSettings);
+  const debugMode = await esbuild.context(debugSettings);
   console.log("Watching for changes...");
+  await debugMode.rebuild();
+  writeIndexHtml({
+    js: 'assets/index.js',
+    css: 'assets/styles/index.css'
+  });
 
   if (watch) {
     debugMode.watch();
@@ -80,39 +88,55 @@ if (watch || dev) {
     });
   }
 } else {
-  let productionSettings = {
+  const productionSettings = {
     ...commonSettings,
-    entryNames: '[dir]/[name]-[hash]', // 🛠️ Add content-based hashing
+    entryNames: '[dir]/[name]-[hash]',
     sourcemap: false,
   };
 
   console.log("Building with production settings...", productionSettings);
 
   const result = await esbuild.build(productionSettings);
+  const { js, css } = getBuiltAssets(result.metafile);
 
-  console.log("Build completed. Updating index.html references...");
-  await updateHtmlReferences(result.metafile);
+  writeIndexHtml({ js, css });
+  console.log("Build completed.");
 }
 
-async function updateHtmlReferences(metafile) {
+function getBuiltAssets(metafile) {
   const outputs = metafile.outputs;
-  const assetMap = {};
+  let js;
+  let css;
 
   for (const file in outputs) {
-    if (file.endsWith('.js')) {
-      assetMap.js = path.basename(file);
+    const output = outputs[file];
+    if (output.entryPoint?.endsWith('src/index.js')) {
+      js = path.relative(publicDir, file).replaceAll(path.sep, '/');
     }
-    if (file.endsWith('.css')) {
-      assetMap.css = path.basename(file);
+    if (output.entryPoint?.endsWith('src/styles/index.scss')) {
+      css = path.relative(publicDir, file).replaceAll(path.sep, '/');
     }
   }
 
-  const indexPath = path.resolve('public/index.html');
-  let html = fs.readFileSync(indexPath, 'utf-8');
+  if (!js || !css) {
+    throw new Error('Failed to resolve built asset filenames.');
+  }
 
-  html = html.replace(/\.\/assets\/index\.js/, `./assets/${assetMap.js}`);
-  html = html.replace(/\.\/assets\/styles\/index\.css/, `./assets/styles/${assetMap.css}`);
+  return { js, css };
+}
+
+function writeIndexHtml({ js, css }) {
+  let html = fs.readFileSync(templatePath, 'utf-8');
+
+  html = html.replace(
+    '<!-- CSS_PLACEHOLDER -->',
+    css ? `<link rel="stylesheet" href="./${css}">` : ''
+  );
+
+  html = html.replace(
+    '<!-- JS_PLACEHOLDER -->',
+    `<script src="./${js}" async defer></script>`
+  );
 
   fs.writeFileSync(indexPath, html, 'utf-8');
-  console.log("✅ index.html updated with new hashed filenames!");
 }

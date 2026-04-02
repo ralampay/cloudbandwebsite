@@ -1,40 +1,29 @@
 import axios from "axios";
 import React from "react";
 
-export const hasFormError = (errors, key) => {
-  return errors[key] && errors[key].length > 0;
+const endpoint = "https://lrat0149zk.execute-api.ap-southeast-1.amazonaws.com/Prod/messenger";
+
+export function hasFormError(errors, key) {
+  return Array.isArray(errors[key]) && errors[key].length > 0;
 }
 
-export const getInputClassName = (errors, key) => {
-  return `form-control ${hasFormError(errors, key) ? 'is-invalid' : ''}`;
+export function getInputClassName(errors, key) {
+  return `form-control ${hasFormError(errors, key) ? "is-invalid" : ""}`.trim();
 }
 
-export const renderInputErrors = (errors, key) => {
-  if (hasFormError(errors, key)) {
-    return (
-      <div className="invalid-feedback d-block">
-        {errors[key].join(',')}
-      </div>
-    );
-  } else {
-    return (
-      <div/>
-    );
+export function renderInputErrors(errors, key) {
+  if (!hasFormError(errors, key)) {
+    return null;
   }
+
+  return <div className="invalid-feedback d-block">{errors[key].join(", ")}</div>;
 }
 
-export const submitMessage = (payload) => {
-  const endpoint = 'https://lrat0149zk.execute-api.ap-southeast-1.amazonaws.com/Prod/messenger';
-  console.log(`[DEBUG]: Endpoint is ${endpoint}`);
-
-  return axios.post(
-    endpoint,
-    payload,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json, text/plain, */*',
-      }
-    }
-  )
+export function submitMessage(payload) {
+  return axios.post(endpoint, payload, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json, text/plain, */*",
+    },
+  });
 }

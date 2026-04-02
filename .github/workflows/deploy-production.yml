@@ -1,0 +1,59 @@
+name: deploy-to-s3
+
+on:
+  push:
+    branches: [master]
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.13.0
+          cache: npm
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Build
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          if [ -n "${{ secrets.API_BASE_URL }}" ]; then
+            echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env
+          fi
+          if [ -n "${{ secrets.TOKEN_BEARER }}" ]; then
+            echo "TOKEN_BEARER=${{ secrets.TOKEN_BEARER }}" >> .env
+          fi
+          if [ -n "${{ secrets.CURRENT_USER }}" ]; then
+            echo "CURRENT_USER=${{ secrets.CURRENT_USER }}" >> .env
+          fi
+          if [ -n "${{ secrets.API_VERSION }}" ]; then
+            echo "API_VERSION=${{ secrets.API_VERSION }}" >> .env
+          fi
+          if [ -n "${{ secrets.DEMO_MODE }}" ]; then
+            echo "DEMO_MODE=${{ secrets.DEMO_MODE }}" >> .env
+          fi
+          npm install
+          npm run build
+
+      - name: Deploy (no cache)
+        run: |
+          aws s3 sync ./public s3://${{ secrets.S3_BUCKET_NAME }} \
+            --exclude "index.html" \
+            --delete \
+            --cache-control "max-age=31536000, immutable"
+
+          aws s3 cp ./public/index.html s3://${{ secrets.S3_BUCKET_NAME }}/index.html \
+            --cache-control "no-cache, no-store, must-revalidate" \
+            --metadata-directive REPLACE

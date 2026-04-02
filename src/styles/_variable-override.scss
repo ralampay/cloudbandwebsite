@@ -1,25 +1,32 @@
-// Font
-$font-family-base: 'Mulish', system-ui, sans-serif;
-$btn-font-size : .875rem;
-$nav-link-font-size : .875rem;
-$font-weight-black: 900;
+// Typography
+$font-family-base: "Manrope", system-ui, sans-serif;
+$headings-font-family: "Sora", system-ui, sans-serif;
+$headings-font-weight: 700;
+$btn-font-size: 0.875rem;
+$nav-link-font-size: 0.92rem;
 $font-weight-bolder: 800;
 
-// Color
-$body-color: #555;
-$headings-color: #04100e;
+// Colors
+$body-bg: #f4f7f5;
+$body-color: #51625d;
+$headings-color: #10241f;
 $card-title-color: $headings-color;
-$color-accent : #ffcc66;
-$primary : #165045;
-$primary-light: #f8faf9;
+$color-accent: #ffb84d;
+$primary: #164d45;
+$primary-light: #eef6f3;
 $navbar-light-active-color: $primary;
+$link-color: $primary;
+$link-hover-color: #0d3932;
 
-// Component - btn
-$btn-border-radius: 6px;
+// Components
+$btn-border-radius: 999px;
 $btn-border-radius-lg: $btn-border-radius;
-$btn-font-size : .75rem;
-$btn-padding-y : .714em;
-$btn-padding-x : 2.14em;
-
-$border-radius: 6px;
-$box-shadow-sm : 2px 4px 8px rgba(0, 0, 0, .05);
+$btn-padding-y: 0.85rem;
+$btn-padding-x: 1.5rem;
+$border-radius: 1rem;
+$border-radius-sm: 0.75rem;
+$box-shadow-sm: 0 18px 40px rgba(13, 33, 28, 0.08);
+$box-shadow: 0 24px 60px rgba(13, 33, 28, 0.12);
+$input-border-radius: 1rem;
+$input-padding-y: 0.9rem;
+$input-padding-x: 1rem;
